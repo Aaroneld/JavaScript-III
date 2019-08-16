@@ -156,3 +156,87 @@ Humanoid.prototype.greet = function greet () {
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+  function Hero(attributes){
+
+    Humanoid.call(this, attributes);
+
+  }
+
+  Hero.prototype = Object.create(Humanoid.prototype);
+
+  Hero.prototype.attack = function attack (Villian){
+
+    Villian.healthPoints -= 5;
+    console.log(`${Villian.name} took 5 points of damage`);
+    if (Villain.healthPoints <= 0)
+      Villian.destroy();
+    else
+      return `${Villian.name} is still alive!`
+
+  }
+
+ 
+
+  function Villain(attributes){
+
+    Humanoid.call(this, attributes);
+
+  }
+
+  Villain.prototype = Object.create(Humanoid.prototype);
+
+  Villain.prototype.attack = function attack (Hero){
+
+    Hero.healthPoints -= 5;
+    console.log(`${Hero.name} took 5 points of damage`);
+    if (Hero.healthPoints <= 0)
+      return Hero.destroy();
+    else
+      return `${Hero.name} is still alive!`
+    
+
+  }
+
+
+  const spearman = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 2,
+      width: 2,
+      height: 2,
+    },
+    healthPoints: 15,
+    name: 'Sir Mustachio',
+    team: 'The Round Table',
+    weapons: [
+      'Giant Sword',
+      'Shield',
+    ],
+    language: 'Common Tongue',
+  });
+
+  const bowman = new Villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 1,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 10,
+    name: 'Lilith',
+    team: 'Forest Kingdom',
+    weapons: [
+      'Bow',
+      'Dagger',
+    ],
+    language: 'Elvish',
+  });
+
+  console.log(bowman);
+  console.log(spearman);
+
+  console.log(bowman.attack(spearman));
+  console.log(bowman.attack(spearman));
+  console.log(bowman.attack(spearman));
+ 
